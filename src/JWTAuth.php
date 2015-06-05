@@ -207,7 +207,7 @@ class JWTAuth
      *
      * @return false|string
      */
-    protected function parseAuthHeader($header = 'authorization', $method = 'bearer')
+    protected function parseAuthHeader($headerName = 'authorization', $method = 'bearer')
     {
       $header = $this->request->headers->get($headerName);
 
