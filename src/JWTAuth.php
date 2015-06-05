@@ -209,13 +209,21 @@ class JWTAuth
      */
     protected function parseAuthHeader($header = 'authorization', $method = 'bearer')
     {
-        $header = $this->request->headers->get($header);
+      $header = $this->request->headers->get($headerName);
 
-        if (! starts_with(strtolower($header), $method)) {
-            return false;
+      if(is_null($header)) {
+        $headers = array_change_key_case(getallheaders(), CASE_LOWER);
+
+        if(array_key_exists($headerName, $headers)) {
+          $header = $headers[$headerName];
         }
+      }
 
-        return trim(str_ireplace($method, '', $header));
+      if (! starts_with(strtolower($header), $method)) {
+        return false;
+      }
+
+      return trim(str_ireplace($method, '', $header));
     }
 
     /**
